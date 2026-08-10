@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Media Kit 2027 | Totus Tuus Mariae Festival</title>
-<meta name="description" content="Media kit de patrocínio do Totus Tuus Mariae Festival 2027, um dos maiores eventos Marianos do Brasil. 29 de maio de 2027, Goiânia, Goiás.">
+<title>Mídia Kit 2027 | Totus Tuus Mariae Festival</title>
+<meta name="description" content="Mídia kit de patrocínio do Totus Tuus Mariae Festival 2027, um dos maiores eventos Marianos do Brasil. 29 de maio de 2027, Goiânia, Goiás.">
 <link rel="stylesheet" href="assets/fonts.css?v=3c52cd07">
-<link rel="stylesheet" href="assets/kit.css?v=71f46859">
+<link rel="stylesheet" href="assets/kit.css?v=48960a14">
 <link rel="canonical" href="https://totustuuspatrocinio.rafasbatista.app.br/">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="Media Kit 2027 | Totus Tuus Mariae Festival">
@@ -27,7 +27,7 @@
   </div>
 
   <div class="capa-centro">
-    <div class="capa-kicker">Media Kit de Patrocínio</div>
+    <div class="capa-kicker">Mídia Kit de Patrocínio</div>
     <h1>Totus Tuus<em>Mariae Festival</em></h1>
     <div class="capa-linha"></div>
     <div class="capa-data">12ª edição <span>·</span> 29 de maio de 2027<br>Goiânia, Goiás</div>
@@ -530,13 +530,14 @@
 </section>
 
 <!-- ══════════════════ TABELA DE COTAS ══════════════════ -->
-<section class="page light">
+<section class="page light" id="cotas">
   <div class="wrap">
     <div class="eyebrow">Cotas de patrocínio 2027</div>
     <h2>Comparativo</h2>
     <div class="h2-sub">Valores do Lote 1, com 15% de desconto, válidos até 31 de outubro de 2026</div>
 
-    <div class="scroll-hint">Arraste a tabela para o lado para ver todas as cotas</div>
+    <div class="tabela-area">
+    <div class="scroll-hint"><span class="seta" aria-hidden="true"></span>Arraste para o lado para ver todas as cotas</div>
     <div class="tabela-scroll">
       <table>
         <thead>
@@ -571,6 +572,7 @@
           <tr class="preco"><th>Valor de tabela cheia</th><td>R$ 5.000</td><td>R$ 20.000</td><td>R$ 55.000</td><td>R$ 110.000</td><td>R$ 180.000</td><td>R$ 300.000</td></tr>
         </tbody>
       </table>
+    </div>
     </div>
     <div class="destaque-box" style="margin-top:1.6rem">
       <h3>Regras de uso da marca Totus Tuus</h3>
@@ -713,17 +715,17 @@
     <div class="grid g2" style="margin-top:2.2rem">
       <div class="card">
         <h3>Lounge corporativo</h3>
-        <div class="cota-valor" style="font-size:1.7rem;margin:.3rem 0 .2rem">R$ 25.000</div>
+        <div class="cota-valor" style="font-size:1.7rem;margin:.3rem 0 .2rem">R$ 15.000</div>
         <p class="small" style="margin:0">Espaço reservado com capacidade para <strong>até 10 pessoas</strong>, vista privilegiada do palco, acesso exclusivo, credenciais e área de circulação restrita. Ideal para receber clientes, parceiros e diretoria. Incluso nas cotas Diamante e Master.</p>
       </div>
       <div class="card">
         <h3>Naming de setor ou portão</h3>
-        <div class="cota-valor" style="font-size:1.7rem;margin:.3rem 0 .2rem">R$ 40.000</div>
+        <div class="cota-valor" style="font-size:1.7rem;margin:.3rem 0 .2rem">R$ 20.000</div>
         <p class="small" style="margin:0">Quatro unidades disponíveis. A marca nomeia um setor ou portão de acesso, com sinalização física e presença no mapa oficial e na comunicação de acessos.</p>
       </div>
       <div class="card">
         <h3>Praça de alimentação</h3>
-        <div class="cota-valor" style="font-size:1.7rem;margin:.3rem 0 .2rem">R$ 50.000</div>
+        <div class="cota-valor" style="font-size:1.7rem;margin:.3rem 0 .2rem">R$ 30.000</div>
         <p class="small" style="margin:0">Naming e presença de marca em toda a área de alimentação, ponto de permanência prolongada do público ao longo do dia.</p>
       </div>
       <div class="card">
@@ -811,6 +813,32 @@
 <div class="toolbar">
   <a class="botao" href="MIDIA-KIT-TOTUS-TUUS-2027.pdf" download>Baixar PDF</a>
 </div>
+
+<script>
+// Mostra o aviso de arraste apenas quando a tabela realmente é maior que a
+// tela, e o esconde assim que a pessoa entende e rola até o fim.
+(function(){
+  document.querySelectorAll('.tabela-area').forEach(function(area){
+    var rolagem = area.querySelector('.tabela-scroll');
+    var aviso = area.querySelector('.scroll-hint');
+    if (!rolagem) return;
+
+    function atualizar(){
+      if (!aviso) return;
+      var corta = rolagem.scrollWidth - rolagem.clientWidth > 4;
+      // sem corte não há o que arrastar, e o aviso só atrapalharia
+      aviso.style.display = corta ? '' : 'none';
+      // depois que a pessoa arrasta, o aviso já cumpriu o papel
+      if (rolagem.scrollLeft > 24) aviso.style.opacity = '0';
+    }
+
+    rolagem.addEventListener('scroll', atualizar, {passive:true});
+    window.addEventListener('resize', atualizar);
+    if (aviso) aviso.style.transition = 'opacity .3s';
+    atualizar();
+  });
+})();
+</script>
 
 </body>
 </html>
