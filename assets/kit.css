@@ -1,0 +1,589 @@
+/* ============================================================
+   MEDIA KIT TOTUS TUUS MARIAE FESTIVAL 2027
+   Identidade neutra, baseada na Marca Medalha (marca permanente)
+   ============================================================ */
+
+:root{
+  --bordo:#5A0A0F;
+  --bordo-dark:#2A080C;
+  --bordo-deep:#170406;
+  --ouro:#C9A227;
+  --ouro-luz:#EAA928;
+  --marfim:#E7D1AF;
+  --papel:#F7F3EC;
+  --papel-2:#EFE8DC;
+  --tinta:#241C18;
+  --tinta-suave:#6A5C52;
+  /* serifada robusta, de altura-x alta e traço encorpado:
+     escolhida para leitura confortável em corpo grande e impresso */
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  /* Cormorant usa algarismos de estilo antigo, ilegíveis em corpo grande.
+     Archivo entra só para números, com figuras alinhadas e tabulares. */
+  --num:'Archivo','Inter',system-ui,Helvetica,Arial,sans-serif;
+  --pad-y:clamp(56px,9vw,110px);
+  --pad-x:clamp(22px,6vw,80px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  background:var(--papel);
+  color:var(--tinta);
+  line-height:1.6;
+  font-size:16px;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+
+/* ---------- estrutura ---------- */
+.page{
+  position:relative;
+  padding:var(--pad-y) var(--pad-x);
+  overflow:hidden;
+}
+.wrap{max-width:1080px;margin:0 auto;position:relative;z-index:2}
+.wrap-narrow{max-width:780px;margin:0 auto;position:relative;z-index:2}
+
+/* --sheet guarda a cor de fundo da seção, usada pela coluna fixa das tabelas */
+.dark{background:var(--bordo-dark);color:var(--papel);--sheet:var(--bordo-dark)}
+.deep{background:var(--bordo-deep);color:var(--papel);--sheet:var(--bordo-deep)}
+.bordo{background:var(--bordo);color:var(--papel);--sheet:var(--bordo)}
+.light{background:var(--papel);--sheet:var(--papel)}
+.light-2{background:var(--papel-2);--sheet:var(--papel-2)}
+
+/* ---------- tipografia ---------- */
+.eyebrow{
+  font-family:var(--sans);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ouro);
+  margin-bottom:1.1rem;
+  display:flex;align-items:center;gap:.9rem;
+}
+.eyebrow::after{content:'';flex:1;height:1px;background:currentColor;opacity:.35;max-width:120px}
+.light .eyebrow,.light-2 .eyebrow{color:#96751A}
+
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.06;letter-spacing:-.01em;overflow-wrap:break-word}
+h1{font-size:clamp(2.1rem,6.6vw,4.3rem)}
+h2{font-size:clamp(1.85rem,4.2vw,2.85rem);margin-bottom:1.4rem}
+h3{font-size:clamp(1.2rem,2.1vw,1.5rem);margin-bottom:.5rem}
+.h2-sub{font-family:var(--serif);font-size:clamp(1.02rem,1.8vw,1.25rem);color:var(--ouro);margin:-.8rem 0 1.6rem}
+.light .h2-sub,.light-2 .h2-sub{color:#96751A}
+
+p{margin-bottom:1rem;max-width:68ch}
+
+/* Justificação também na tela, com separação silábica.
+   Fora das colunas estreitas, onde justificar abre buracos. */
+@media screen{
+  p{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+  .g3 .card p,.g4 .card p,.g5 .card p,.cota p,
+  .nota,.foto-cap,.stat span,.cota-lote,.per span,.h2-sub{
+    text-align:left;hyphens:manual;-webkit-hyphens:manual;
+  }
+  .capa-tag,.cta-box p,.fim p,.capa-data{text-align:center}
+}
+@media screen and (max-width:520px){
+  /* em medida muito curta a justificação volta a atrapalhar */
+  .card p,.destaque-box p{text-align:left;hyphens:manual}
+}
+.lead{font-size:clamp(1.06rem,1.6vw,1.22rem);line-height:1.62}
+.small{font-size:.87rem;line-height:1.55}
+.muted{color:var(--tinta-suave)}
+.dark .muted,.deep .muted,.bordo .muted{color:#C6AFA6}
+.nota{font-size:.76rem;line-height:1.5;opacity:.72;margin-top:1.4rem;max-width:70ch}
+strong{font-weight:600}
+.gold{color:var(--ouro)}
+.light .gold,.light-2 .gold{color:#96751A}
+
+/* ---------- capa ---------- */
+.capa{
+  min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:space-between;
+  color:#fff;padding:clamp(30px,5vw,60px) var(--pad-x);
+  position:relative;background:var(--bordo-deep);
+}
+.capa-bg{position:absolute;inset:0;z-index:0}
+.capa-bg img{width:100%;height:100%;object-fit:cover;opacity:.82}
+.capa-bg::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 55%,rgba(23,4,6,.72),transparent 70%),
+    linear-gradient(180deg,rgba(23,4,6,.72) 0%,rgba(23,4,6,.3) 34%,rgba(23,4,6,.55) 70%,rgba(23,4,6,.9) 100%);
+}
+/* eleva o conteúdo acima do fundo, sem atingir a própria camada de fundo */
+.capa>*:not(.capa-bg){position:relative;z-index:2}
+.capa-topo{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.capa-marca{width:clamp(90px,11vw,132px)}
+.capa-ano{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.1rem);color:var(--ouro);letter-spacing:.1em}
+.capa-centro{text-align:center;padding:clamp(14px,2.4vw,26px) 0}
+.capa-tag{
+  font-family:var(--serif);
+  font-size:clamp(1.02rem,2.2vw,1.4rem);color:var(--marfim);
+  margin:1.5rem auto 0;max-width:34ch;line-height:1.4;
+}
+.capa-kicker{
+  font-size:clamp(.6rem,2.1vw,.75rem);font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--ouro);margin-bottom:1.6rem;
+}
+.capa h1{font-size:clamp(2rem,8.6vw,6.4rem);text-transform:uppercase;letter-spacing:.01em;line-height:.94}
+.capa h1 em{display:block;font-style:italic;font-weight:400;text-transform:none;color:var(--marfim);font-size:.5em;letter-spacing:.02em;margin-top:.15em}
+.capa-linha{width:60px;height:2px;background:var(--ouro);margin:2rem auto}
+.capa-data{font-family:var(--sans);font-size:clamp(.82rem,1.5vw,1rem);font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.capa-data span{color:var(--ouro)}
+.capa-rodape{display:flex;justify-content:center;gap:clamp(20px,5vw,64px);flex-wrap:wrap;text-align:center;border-top:1px solid rgba(231,209,175,.22);padding-top:clamp(18px,3vw,30px)}
+.capa-rodape div{min-width:96px}
+@media screen and (max-width:600px){
+  .capa-rodape{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem 1rem}
+  .capa-rodape div{min-width:0}
+}
+.capa-rodape b{display:block;font-family:var(--serif);font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--ouro);line-height:1}
+.capa-rodape span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+
+/* ---------- marca d'água ---------- */
+.watermark{
+  position:absolute;z-index:0;pointer-events:none;
+  width:min(58%,520px);opacity:.055;
+  right:-6%;top:50%;transform:translateY(-50%);
+}
+.deep .watermark,.dark .watermark,.bordo .watermark{opacity:.07}
+
+/* ---------- grids ---------- */
+.grid{display:grid;gap:clamp(18px,2.6vw,32px)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g5{grid-template-columns:repeat(5,1fr)}
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,56px);align-items:center}
+/* breakpoints restritos à tela: em impressão a página A4 mede ~794px
+   e dispararia estas regras indevidamente */
+@media screen and (max-width:860px){
+  .g3,.g4,.g5{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr}
+  .split.rev>*:first-child{order:2}
+}
+@media screen and (max-width:520px){
+  .g2,.g3,.g4,.g5{grid-template-columns:1fr}
+  .g4.keep2,.g5.keep2,.g3.keep2{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ---------- números ---------- */
+.stat{padding:clamp(16px,2.4vw,26px) 0;border-top:1px solid rgba(231,209,175,.24)}
+.light .stat,.light-2 .stat{border-color:rgba(36,28,24,.14)}
+.stat b{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(2.3rem,5.4vw,3.7rem);line-height:1;color:var(--ouro);letter-spacing:-.02em}
+.light .stat b,.light-2 .stat b{color:var(--bordo)}
+.stat span{display:block;font-size:.74rem;letter-spacing:.13em;text-transform:uppercase;margin-top:.6rem;opacity:.82;line-height:1.45}
+
+/* ---------- cartões ---------- */
+.card{
+  background:rgba(231,209,175,.06);
+  border:1px solid rgba(231,209,175,.2);
+  border-radius:3px;padding:clamp(20px,2.6vw,30px);
+}
+.light .card,.light-2 .card{background:#fff;border-color:rgba(36,28,24,.12)}
+.card h3{color:var(--ouro)}
+.light .card h3,.light-2 .card h3{color:var(--bordo)}
+
+/* ---------- fotos ---------- */
+.foto{overflow:hidden;background:var(--bordo-deep);border-radius:2px}
+.foto img{width:100%;height:100%;object-fit:cover;display:block}
+.foto-cap{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-top:.6rem}
+.r43{aspect-ratio:4/3}
+.r32{aspect-ratio:3/2}
+.r11{aspect-ratio:1/1}
+.r169{aspect-ratio:16/9}
+.r34{aspect-ratio:3/4}
+.r219{aspect-ratio:21/9}
+
+.bleed{margin:clamp(28px,4vw,44px) calc(var(--pad-x)*-1) 0;width:calc(100% + var(--pad-x)*2)}
+.bleed img{width:100%;display:block}
+
+/* ---------- linha do tempo ---------- */
+.tl{display:flex;flex-direction:column;gap:2px;margin-top:2rem}
+.tl-row{display:grid;grid-template-columns:78px 1fr 118px;align-items:center;gap:clamp(10px,2vw,20px);padding:.62rem 0;border-bottom:1px solid rgba(231,209,175,.16)}
+.light .tl-row,.light-2 .tl-row{border-color:rgba(36,28,24,.1)}
+.tl-ano{font-family:var(--serif);font-size:1.32rem;font-weight:700;color:var(--marfim)}
+.light .tl-ano,.light-2 .tl-ano{color:var(--bordo)}
+.tl-bar{height:12px;background:rgba(231,209,175,.14);position:relative;border-radius:1px;overflow:hidden}
+.light .tl-bar,.light-2 .tl-bar{background:rgba(36,28,24,.08)}
+.tl-bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--bordo),var(--ouro));display:block;border-radius:1px}
+.tl-val{font-size:.82rem;font-weight:600;text-align:right;letter-spacing:.04em}
+.tl-note{font-size:.7rem;opacity:.6;text-align:right;letter-spacing:.06em}
+@media(max-width:560px){
+  .tl-row{grid-template-columns:58px 1fr 84px;gap:8px}
+  .tl-ano{font-size:1.05rem}
+  .tl-val{font-size:.72rem}
+}
+
+/* ---------- edições / logomarcas ---------- */
+.ed-card{position:relative;overflow:hidden;background:var(--bordo-deep)}
+.ed-card .foto{aspect-ratio:4/3}
+.edicoes .ed-card .foto{aspect-ratio:3/4}
+.ed-card img{transition:none}
+.ed-tag{
+  position:absolute;left:0;bottom:0;right:0;
+  background:linear-gradient(180deg,rgba(23,4,6,0),rgba(23,4,6,.92));
+  padding:26px 14px 12px;color:#fff;
+}
+.ed-tag b{font-family:var(--serif);font-size:1.35rem;display:block;line-height:1}
+.ed-tag span{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+
+.logo-box{
+  background:rgba(231,209,175,.05);border:1px solid rgba(231,209,175,.18);
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(16px,2.4vw,26px);aspect-ratio:4/3;position:relative;
+}
+/* max-width junto com max-height: sem isso o logo estoura a caixa
+   em telas estreitas e invade o texto vizinho */
+.logo-box img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.logo-ano{position:absolute;top:8px;left:12px;font-size:.66rem;letter-spacing:.16em;color:var(--ouro);font-weight:600}
+
+/* ---------- imagens peregrinas ---------- */
+.per{display:grid;grid-template-columns:74px 1fr;gap:clamp(14px,2vw,24px);padding:1.05rem 0;border-bottom:1px solid rgba(231,209,175,.16)}
+.light .per,.light-2 .per{border-color:rgba(36,28,24,.1)}
+.per-ano{font-family:var(--serif);font-size:1.45rem;font-weight:700;color:var(--ouro);line-height:1.1}
+.light .per-ano,.light-2 .per-ano{color:var(--bordo)}
+.per b{display:block;font-size:1rem;font-weight:600;margin-bottom:.15rem}
+.per span{font-size:.86rem;opacity:.8}
+.per.reveal{background:linear-gradient(90deg,rgba(201,162,39,.14),transparent);border-bottom-color:var(--ouro)}
+
+/* ---------- tabela de cotas ---------- */
+.tabela-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:1.8rem}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:.83rem}
+th,td{padding:.72rem .7rem;text-align:center;border-bottom:1px solid rgba(231,209,175,.16)}
+.light th,.light td,.light-2 th,.light-2 td{border-color:rgba(36,28,24,.1)}
+thead th{
+  font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;color:var(--ouro);vertical-align:bottom;padding-bottom:1rem;
+}
+.light thead th,.light-2 thead th{color:var(--bordo)}
+thead th b{display:block;font-family:var(--serif);font-size:1.5rem;letter-spacing:0;text-transform:none;margin-top:.3rem}
+tbody th{text-align:left;font-weight:400;font-size:.82rem;opacity:.9;min-width:230px}
+
+/* coluna de rótulos fixa ao rolar a tabela na horizontal */
+@media screen{
+  thead th:first-child,tbody th{
+    position:sticky;left:0;z-index:2;
+    background:var(--sheet,var(--papel));
+  }
+}
+.scroll-hint{
+  display:none;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  opacity:.6;margin-top:1.4rem;
+}
+@media screen and (max-width:720px){
+  .scroll-hint{display:block}
+  table{min-width:600px;font-size:.75rem}
+  tbody th{min-width:140px;font-size:.74rem}
+  th,td{padding:.6rem .45rem}
+  thead th b{font-size:1.1rem}
+  tr.preco td{font-size:.95rem}
+}
+td.sim{color:var(--ouro);font-weight:600}
+.light td.sim,.light-2 td.sim{color:#96751A}
+/* "não incluso": traço desenhado em CSS, sem usar caractere de travessão */
+td.nao::before{
+  content:'';display:inline-block;vertical-align:middle;
+  width:11px;height:1px;background:currentColor;opacity:.28;
+}
+tr.preco td,tr.preco th{border-bottom:2px solid var(--ouro);padding-top:1rem;padding-bottom:1rem}
+tr.preco td{font-family:var(--serif);font-size:1.24rem;font-weight:700;color:var(--marfim)}
+.light tr.preco td,.light-2 tr.preco td{color:var(--bordo)}
+tr.vagas td{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacity:.7;padding-top:.2rem}
+
+/* ---------- cota detalhada ---------- */
+.cota{border:1px solid rgba(231,209,175,.22);padding:clamp(20px,2.6vw,30px);display:flex;flex-direction:column;height:100%}
+.light .cota,.light-2 .cota{border-color:rgba(36,28,24,.14);background:#fff}
+.cota.destaque{border-color:var(--ouro);border-width:2px;background:rgba(201,162,39,.07)}
+.cota-nome{font-family:var(--serif);font-size:1.7rem;font-weight:700;line-height:1;margin-bottom:.2rem}
+.cota-valor{font-family:var(--serif);font-size:2.05rem;font-weight:700;color:var(--ouro);line-height:1.1;margin:.5rem 0 .1rem}
+.light .cota-valor,.light-2 .cota-valor{color:var(--bordo)}
+.cota-lote{font-size:.72rem;letter-spacing:.06em;opacity:.72;margin-bottom:1rem}
+.cota-vagas{
+  display:inline-block;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid currentColor;padding:.22rem .55rem;color:var(--ouro);margin-bottom:.9rem;align-self:flex-start;
+}
+.light .cota-vagas,.light-2 .cota-vagas{color:#96751A}
+.cota ul{list-style:none;font-size:.85rem;line-height:1.5}
+.cota li{padding:.42rem 0 .42rem 1.25rem;position:relative;border-bottom:1px solid rgba(231,209,175,.12)}
+.light .cota li,.light-2 .cota li{border-color:rgba(36,28,24,.08)}
+.cota li:last-child{border-bottom:0}
+.cota li::before{content:'';position:absolute;left:0;top:.85em;width:6px;height:6px;background:var(--ouro);border-radius:50%}
+.cota li b{color:var(--ouro);font-weight:600}
+.light .cota li b,.light-2 .cota li b{color:#96751A}
+
+/* ---------- lotes ---------- */
+.lote{border-left:3px solid var(--ouro);padding:.2rem 0 .2rem 1.3rem;margin-bottom:1.6rem}
+.lote b{display:block;font-family:var(--serif);font-size:1.45rem;line-height:1.1}
+.lote em{font-style:normal;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ouro);display:block;margin:.25rem 0 .4rem}
+.light .lote em,.light-2 .lote em{color:#96751A}
+.lote-off{font-family:var(--serif);font-size:2.6rem;font-weight:700;color:var(--ouro);line-height:1}
+.light .lote-off,.light-2 .lote-off{color:var(--bordo)}
+
+/* ---------- selo / destaque ---------- */
+.destaque-box{
+  border:1px solid var(--ouro);padding:clamp(22px,3vw,34px);
+  background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(201,162,39,.02));
+  margin-top:2rem;
+}
+.destaque-box h3{color:var(--ouro);margin-bottom:.6rem}
+.light .destaque-box h3,.light-2 .destaque-box h3{color:var(--bordo)}
+
+.pill{
+  display:inline-block;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid var(--ouro);color:var(--ouro);padding:.3rem .7rem;border-radius:2px;margin-bottom:1rem;
+}
+.light .pill,.light-2 .pill{color:#96751A}
+
+/* ---------- lista de itens ---------- */
+.itens{list-style:none;margin-top:1rem}
+.itens li{padding:.62rem 0 .62rem 1.6rem;position:relative;border-bottom:1px solid rgba(231,209,175,.14);font-size:.92rem}
+.light .itens li,.light-2 .itens li{border-color:rgba(36,28,24,.1)}
+.itens li::before{content:'';position:absolute;left:0;top:1.05em;width:9px;height:1px;background:var(--ouro)}
+.itens li b{font-weight:600}
+
+/* ---------- veículos de mídia ---------- */
+.veiculos{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.veiculos span{
+  border:1px solid rgba(231,209,175,.3);padding:.42rem .85rem;
+  font-size:.78rem;letter-spacing:.04em;border-radius:2px;
+}
+.light .veiculos span,.light-2 .veiculos span{border-color:rgba(36,28,24,.16)}
+
+/* ---------- fechamento ---------- */
+.fim{
+  text-align:center;position:relative;background:var(--bordo-deep);color:#fff;
+  min-height:78vh;display:flex;align-items:center;
+  padding:var(--pad-y) var(--pad-x) calc(var(--pad-y) + 70px);
+}
+.fim .marca{width:clamp(120px,16vw,190px);margin:0 auto 2.2rem}
+.fim h2{font-size:clamp(2.2rem,6vw,4rem)}
+/* o "Faça parte" precisa ter peso de chamada, não de rótulo */
+.fim .capa-kicker{font-size:clamp(1rem,3.6vw,1.5rem);letter-spacing:.26em;margin-bottom:1.1rem}
+.fim .capa-linha{margin:2rem auto}
+.inst{display:flex;justify-content:center;align-items:center;gap:clamp(20px,4vw,52px);flex-wrap:wrap;margin-top:2.6rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+
+/* ---------- assinatura ---------- */
+.assinatura{
+  margin-top:2.2rem;padding-top:1.4rem;
+  border-top:1px solid rgba(231,209,175,.25);
+}
+.light .assinatura,.light-2 .assinatura{border-color:rgba(36,28,24,.15)}
+.assinatura b{
+  display:block;font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,1.65rem);
+  font-weight:600;color:var(--marfim);line-height:1.2;
+}
+.light .assinatura b,.light-2 .assinatura b{color:var(--bordo)}
+.assinatura span{
+  display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  opacity:.75;margin-top:.35rem;
+}
+
+/* ---------- caixa de chamada ---------- */
+.cta-box{
+  margin-top:2.4rem;padding:clamp(24px,3.4vw,40px);
+  background:linear-gradient(120deg,rgba(201,162,39,.2),rgba(201,162,39,.05));
+  border:1px solid var(--ouro);border-left-width:4px;
+}
+.cta-box p{
+  font-family:var(--serif);font-size:clamp(1.4rem,3.4vw,2.25rem);
+  line-height:1.18;margin:0;max-width:22ch;color:var(--marfim);font-weight:600;
+}
+.light .cta-box p,.light-2 .cta-box p{color:var(--bordo)}
+
+/* ---------- logos institucionais ---------- */
+.inst-logos{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(26px,5vw,64px);flex-wrap:wrap;margin-top:clamp(26px,4vw,44px);
+}
+.inst-logos img{height:clamp(42px,5.4vw,64px);width:auto;opacity:.92}
+.inst-logos img.alta{height:clamp(52px,6.6vw,80px)}
+.rodape-inst{
+  border-top:1px solid rgba(231,209,175,.2);
+  padding-top:clamp(20px,3vw,32px);margin-top:clamp(26px,4vw,44px);
+}
+
+/* ---------- barra de impressão (só tela) ---------- */
+.toolbar{
+  position:fixed;right:16px;bottom:16px;z-index:99;display:flex;gap:8px;
+}
+.toolbar button{
+  font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--bordo);color:#fff;border:1px solid var(--ouro);
+  padding:.72rem 1.1rem;border-radius:2px;cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.28);
+}
+.toolbar button:hover{background:var(--ouro);color:var(--bordo-deep)}
+@media screen and (max-width:640px){
+  .toolbar{right:10px;bottom:10px}
+  .toolbar button{font-size:.64rem;padding:.55rem .8rem;opacity:.94}
+}
+
+/* ============================================================
+   ALGARISMOS
+   Declarado por último de propósito: precisa vencer as regras
+   de componente que definem a serifada como família.
+   ============================================================ */
+.num,.stat b,.capa-rodape b,.capa-ano,.tl-ano,.tl-val,.tl-note,
+.cota-valor,.cota-vagas,.lote-off,.per-ano,thead th b,tr.preco td{
+  font-family:var(--num);
+  font-variant-numeric:lining-nums tabular-nums;
+  font-feature-settings:"lnum" 1,"tnum" 1;
+}
+.stat b,.capa-rodape b,.cota-valor,.lote-off,thead th b,tr.preco td{
+  font-weight:600;letter-spacing:-.015em;
+}
+.tl-ano,.per-ano{font-weight:600;letter-spacing:0}
+.capa-ano{font-weight:500;letter-spacing:.08em}
+
+/* ============================================================
+   IMPRESSÃO / PDF  A4
+   ============================================================ */
+@page{size:A4 portrait;margin:0}
+
+@media print{
+  /* margens menores: o conteúdo precisa ocupar mais a página */
+  :root{--pad-y:12mm;--pad-x:14mm}
+  html,body{background:#fff;font-size:11pt}
+  .toolbar{display:none!important}
+
+  .page,.capa,.fim{
+    width:210mm;min-height:297mm;height:297mm;
+    break-after:page;page-break-after:always;
+    break-inside:avoid;page-break-inside:avoid;
+    display:flex;flex-direction:column;justify-content:center;
+    overflow:hidden;
+  }
+  .capa{justify-content:space-between}
+  .page:last-of-type,.fim{break-after:auto;page-break-after:auto}
+  .wrap,.wrap-narrow{width:100%;max-width:none}
+
+  /* Texto corrido justificado, com separação silábica.
+     Colunas estreitas ficam alinhadas à esquerda: justificar em medida curta
+     abre buracos entre as palavras e piora a leitura. */
+  p{text-align:justify;hyphens:auto;-webkit-hyphens:auto;max-width:none}
+  .g3 .card p,.g4 .card p,.g5 .card p,.cota p,.logo-box p,
+  .nota,.foto-cap,.stat span,.tl-val,.tl-note,.cota-lote,.capa-data,
+  .capa-tag,.cta-box p,.ed-tag span,.per span{
+    text-align:left;hyphens:manual;-webkit-hyphens:manual;
+  }
+  .capa-tag,.cta-box p,.fim p,.capa-data{text-align:center}
+
+  /* tipografia ampliada para leitura confortável em papel */
+  h1{font-size:32pt}
+  h2{font-size:23pt;margin-bottom:9pt}
+  h3{font-size:13pt}
+  p{font-size:10.8pt;margin-bottom:7.5pt;line-height:1.5}
+  .lead{font-size:12pt;line-height:1.48}
+  .small{font-size:9.6pt;line-height:1.46}
+  .nota{font-size:8.2pt;line-height:1.42;opacity:.8}
+  .eyebrow{font-size:8pt;margin-bottom:8pt}
+  .h2-sub{font-size:12pt}
+
+  .capa h1{font-size:66pt;line-height:.9}
+  .capa h1 em{font-size:.44em}
+  .capa-kicker{font-size:10pt}
+  .capa-data{font-size:11pt}
+  .capa-tag{font-size:14pt;max-width:38ch}
+  .capa-centro{padding:6mm 0}
+  /* os quatro indicadores precisam caber em uma única linha */
+  .capa-rodape{gap:6mm;flex-wrap:nowrap}
+  .capa-rodape div{flex:1 1 0;min-width:0}
+  .capa-rodape b{font-size:22pt}
+  .capa-rodape span{font-size:6.8pt;letter-spacing:.1em}
+
+  .stat b{font-size:29pt}
+  .stat span{font-size:8pt;line-height:1.35}
+  .stat{padding:.62rem 0}
+
+  .card{padding:4.6mm}
+  .destaque-box{padding:5mm;margin-top:5mm}
+  .destaque-box h3{font-size:12pt;margin-bottom:3pt}
+
+  .cota{padding:5mm}
+  .cota-nome{font-size:15pt}
+  .cota-valor{font-size:18pt}
+  .cota-lote{font-size:8.2pt}
+  .cota ul{font-size:9pt}
+  .cota li{padding:.3rem 0 .3rem 1.1rem}
+
+  /* comparativo: linhas mais arejadas que antes, sem estourar a página */
+  table{min-width:0;font-size:8.4pt}
+  .tabela-scroll{overflow:visible;margin-top:1.1rem}
+  .scroll-hint{display:none}
+  th,td{padding:.42rem .3rem}
+  thead th{font-size:7.4pt;padding-bottom:.5rem}
+  thead th b{font-size:11.5pt;margin-top:.15rem}
+  tr.preco td,tr.preco th{padding-top:.6rem;padding-bottom:.6rem}
+  tr.preco td{font-size:11pt;white-space:nowrap}
+  .nota{margin-top:.8rem}
+  tbody th{min-width:0;font-size:8.2pt}
+  tr.vagas td{font-size:7.2pt;padding-top:.1rem;padding-bottom:.35rem}
+
+  .tl-row{padding:.42rem 0}
+  .tl-ano{font-size:12.5pt}
+  .tl-val{font-size:9pt}
+  .tl-bar{height:11px}
+
+  .per{padding:.62rem 0}
+  .per-ano{font-size:13.5pt}
+  .per b{font-size:11pt}
+  .per span{font-size:9.4pt}
+
+  .itens li{padding:.36rem 0 .36rem 1.4rem;font-size:9.8pt}
+  .veiculos span{font-size:9pt;padding:.36rem .7rem}
+
+  .assinatura b{font-size:15pt}
+  .assinatura span{font-size:8.4pt}
+
+  /* a chamada final centralizada, e não jogada à esquerda */
+  .cta-box{text-align:center;padding:7mm}
+  .cta-box p{font-size:19pt;max-width:none;margin:0 auto;text-align:center}
+
+  .fim{min-height:297mm;padding-bottom:var(--pad-y)}
+  .fim .capa-kicker{font-size:16pt;letter-spacing:.28em}
+  .fim h2{font-size:30pt}
+  .inst-logos img{height:13mm}
+  .inst-logos img.alta{height:16mm}
+
+  /* páginas de texto curto: corpo maior para ocupar a mancha */
+  .amplo h2{font-size:26pt}
+  .amplo p{font-size:12.2pt;line-height:1.52;margin-bottom:9pt}
+  .amplo .lead{font-size:13.6pt}
+  .amplo .small{font-size:11pt;line-height:1.5}
+  .amplo .stat b{font-size:34pt}
+  .amplo .stat span{font-size:9pt}
+  .amplo .stat{padding:.9rem 0}
+  .amplo .card p{font-size:11pt}
+  .amplo .card h3{font-size:14pt}
+  /* espaçamento vertical maior: preenche a mancha sem inchar o corpo */
+  .amplo p{margin-bottom:12pt}
+  .amplo .grid{gap:7mm}
+  .amplo .split{gap:14mm}
+  .amplo .card{padding:6mm}
+  .amplo h2{margin-bottom:12pt}
+  .amplo .destaque-box{padding:6.5mm;margin-top:7mm}
+
+  .logo-box{padding:4mm}
+  .ed-tag b{font-size:12pt}
+  .ed-tag span{font-size:7pt}
+
+  * {-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+
+/* botão de download na versão publicada */
+.toolbar .botao{
+  display:inline-block;text-decoration:none;
+  font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--bordo);color:#fff;border:1px solid var(--ouro);
+  padding:.72rem 1.1rem;border-radius:2px;box-shadow:0 6px 24px rgba(0,0,0,.28);
+}
+.toolbar .botao:hover{background:var(--ouro);color:var(--bordo-deep)}
+.toolbar .botao:focus-visible{outline:2px solid var(--ouro);outline-offset:3px}
+@media screen and (max-width:640px){
+  .toolbar .botao{font-size:.64rem;padding:.55rem .8rem;opacity:.94}
+}
+@media print{.toolbar{display:none!important}}
