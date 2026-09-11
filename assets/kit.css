@@ -102,7 +102,7 @@ h1,h2,h3,.capa-tag,.cta-box p,.cota-nome,.stat b,.tl-ano{
 .small{font-size:.87rem;line-height:1.55}
 .muted{color:var(--tinta-suave)}
 .dark .muted,.deep .muted,.bordo .muted{color:#B4C6B0}
-.nota{font-size:.76rem;line-height:1.5;opacity:.72;margin-top:1.4rem;max-width:70ch}
+.nota{font-size:.76rem;line-height:1.5;opacity:.72;margin-top:1.4rem}
 strong{font-weight:600}
 .gold{color:var(--ouro)}
 .light .gold,.light-2 .gold{color:var(--ouro-escuro)}
