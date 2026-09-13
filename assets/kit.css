@@ -302,7 +302,7 @@ thead th{
   font-weight:600;color:var(--ouro);vertical-align:bottom;padding-bottom:1rem;
 }
 .light thead th,.light-2 thead th{color:var(--bordo)}
-thead th b{display:block;font-family:var(--serif);font-size:1.5rem;letter-spacing:0;text-transform:none;margin-top:.3rem}
+thead th b{display:block;font-family:var(--serif);font-size:1.5rem;letter-spacing:0;text-transform:none;margin-top:.3rem;white-space:nowrap}
 tbody th{text-align:left;font-weight:400;font-size:.82rem;opacity:.9;min-width:230px}
 
 /* coluna de rótulos fixa ao rolar a tabela na horizontal */
