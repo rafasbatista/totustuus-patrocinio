@@ -245,6 +245,11 @@ strong{font-weight:600}
 .lounges-planta{margin:1.8rem auto 0;max-width:720px}
 .lounges-planta .foto{border:1px solid rgba(201,162,74,.35)}
 .lounges-planta .foto-cap{text-align:center}
+.lounges-boxes{margin-top:2rem;align-items:stretch}
+.lounges-boxes .destaque-box{margin-top:0}
+.box-discreto h4{font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin:0 0 .6rem}
+.box-discreto .limite{opacity:.85}
+.box-discreto p{text-align:left}
 
 /* ---------- edições / logomarcas ---------- */
 .ed-card{position:relative;overflow:hidden;background:var(--bordo-deep)}
@@ -617,8 +622,10 @@ tr.vagas td{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacit
   .convidado b{font-size:12.5pt}
   .convidado span{font-size:8pt}
   .fileiras .cota-valor{font-size:15pt}
-  .lounges-planta{max-width:118mm;margin-top:5mm}
+  .lounges-planta{max-width:108mm;margin-top:4mm}
   .lounges-planta+.fileiras{margin-top:5mm!important}
+  .lounges-boxes{margin-top:5mm}
+  .box-discreto h4{font-size:8pt;margin-bottom:2pt}
   .tl-ano{font-size:12.5pt}
   .tl-val{font-size:9pt}
   .tl-bar{height:11px}
