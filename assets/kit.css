@@ -54,7 +54,7 @@ img{max-width:100%;display:block}
 /* --sheet guarda a cor de fundo da seção, usada pela coluna fixa das tabelas */
 .dark{background:var(--bordo-dark);color:var(--papel);--sheet:var(--bordo-dark)}
 .deep{background:var(--bordo-deep);color:var(--papel);--sheet:var(--bordo-deep)}
-.bordo{background:var(--marinho);color:var(--papel);--sheet:var(--marinho)}
+.bordo{background:var(--bordo);color:var(--papel);--sheet:var(--bordo)}
 .light{background:var(--papel);--sheet:var(--papel)}
 .light-2{background:var(--papel-2);--sheet:var(--papel-2)}
 
@@ -193,7 +193,7 @@ strong{font-weight:600}
 }
 .light .card,.light-2 .card{background:#fff;border-color:rgba(20,32,26,.12)}
 /* o azul principal é claro demais para o card quase transparente */
-.bordo .card{background:rgba(10,12,50,.42);border-color:rgba(226,240,222,.3)}
+.bordo .card{background:rgba(7,26,6,.34);border-color:rgba(226,240,222,.3)}
 .card h3{color:var(--ouro)}
 .light .card h3,.light-2 .card h3{color:var(--bordo)}
 
